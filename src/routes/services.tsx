@@ -1,0 +1,8 @@
+import { createFileRoute } from "@tanstack/react-router";
+import office from "@/assets/crosen-office.jpg";
+import { services } from "@/lib/content";
+import { CtaBand, PageHero } from "@/components/site";
+export const Route = createFileRoute("/services")({ head: () => ({ meta: [
+  { title: "Cleaning Services — Crosen Cleaning Services Inc." }, { name: "description", content: "Explore commercial, industrial, and residential cleaning from Crosen." }, { property: "og:title", content: "Cleaning Services — Crosen" }, { property: "og:description", content: "Cleaning care for your home, workplace, and industrial facility." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+] }), component: Services });
+function Services() { return <><PageHero image={office} eyebrow="Our services" title="Cleaning care for every kind of space." /><section className="mx-auto max-w-7xl space-y-20 px-6 py-20">{services.map((s,i) => <div key={s.n} className="grid items-center gap-10 md:grid-cols-2"><div className={`group overflow-hidden rounded-md ${i % 2 ? "md:order-2" : ""}`}><img src={s.image} alt={s.title} loading="lazy" className="img-zoom aspect-[4/3] w-full object-cover" width={1440} height={1024} /></div><div><p className="eyebrow">{s.n} / {s.type}</p><h2 className="mt-4 text-3xl font-bold md:text-4xl">{s.title}</h2><p className="mt-5 max-w-md text-lg text-muted-foreground">{s.text}</p><ul className="mt-8 grid grid-cols-2 gap-4 text-sm font-semibold">{s.details.map(f => <li key={f} className="border-l-2 border-fresh pl-3">{f}</li>)}</ul></div></div>)}</section><CtaBand /></>; }
