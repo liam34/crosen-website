@@ -1,12 +1,13 @@
 @import "tailwindcss" source(none);
 @source "../src";
+@source "../app";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Archivo", sans-serif;
-  --font-sans: "Manrope", sans-serif;
+  --font-display: var(--font-archivo), sans-serif;
+  --font-sans: var(--font-manrope), sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: var(--radius);
