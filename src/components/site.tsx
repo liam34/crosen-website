@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { ArrowUpRight, Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/crosen-logo.png.asset.json";
+const logo = "/crosen-logo.webp";
 
 const nav = [{ to: "/services", label: "Our services" }, { to: "/projects", label: "Spaces we clean" }, { to: "/about", label: "About Crosen" }] as const;
 
@@ -10,7 +10,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return <header className="relative z-30 border-b bg-background">
     <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3">
-      <Link to="/" aria-label="Crosen Cleaning Services home" onClick={() => setOpen(false)}><img src={logo.url} alt="Crosen Cleaning Services Inc." className="h-20 w-40 object-contain md:h-24 md:w-48" width={1152} height={768} /></Link>
+      <Link to="/" aria-label="Crosen Cleaning Services home" onClick={() => setOpen(false)}><img src={logo} alt="Crosen Cleaning Services Inc." className="h-20 w-40 object-contain md:h-24 md:w-48" width={1152} height={768} /></Link>
       <nav className="hidden items-center gap-8 text-sm font-semibold lg:flex">{nav.map(n => <Link key={n.to} to={n.to} activeProps={{ className: "text-primary" }} className="transition hover:text-primary">{n.label}</Link>)}</nav>
       <div className="flex items-center gap-2"><Button asChild className="hidden h-12 sm:inline-flex"><Link to="/contact">Get a quote <ArrowUpRight /></Link></Button><Button variant="ghost" size="icon" className="lg:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div>
     </div>
@@ -20,7 +20,7 @@ export function Header() {
 
 export function Footer() {
   return <footer className="border-t bg-background"><div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[2fr_1fr_1fr]">
-    <div><img src={logo.url} alt="Crosen Cleaning Services Inc." className="h-32 w-56 object-contain" width={1152} height={768} loading="lazy" /><p className="mt-3 max-w-sm text-sm text-muted-foreground">A cleaner space. A brighter day.<br />Commercial, industrial, and residential cleaning.</p></div>
+    <div><img src={logo} alt="Crosen Cleaning Services Inc." className="h-32 w-56 object-contain" width={1152} height={768} loading="lazy" /><p className="mt-3 max-w-sm text-sm text-muted-foreground">A cleaner space. A brighter day.<br />Commercial, industrial, and residential cleaning.</p></div>
     <div className="space-y-4 text-sm"><p className="font-bold">Explore</p>{nav.map(n => <Link key={n.to} to={n.to} className="block text-muted-foreground hover:text-primary">{n.label}</Link>)}<Link to="/contact" className="block text-muted-foreground hover:text-primary">Contact</Link></div>
     <div><p className="font-bold">Let’s freshen things up.</p><p className="mt-4 text-sm text-muted-foreground">Tell us about your space.</p><Button asChild variant="link" className="mt-3 px-0"><Link to="/contact">Talk to Crosen <ArrowUpRight /></Link></Button></div>
   </div><div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3 border-t px-6 py-6 text-xs text-muted-foreground"><span>© {new Date().getFullYear()} Crosen Cleaning Services Inc.</span><span>Commercial · Industrial · Residential</span></div></footer>;
