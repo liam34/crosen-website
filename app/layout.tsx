@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   icons: {
-    icon: [{ url: "/crosen-favicon.png", type: "image/png", sizes: "64x64" }],
+    icon: [{ url: "/crosen-favicon-64.png", type: "image/png", sizes: "64x64" }],
   },
 };
 
