@@ -5,7 +5,7 @@ import { CtaBand, PageHero } from "@/components/site";
 
 export const metadata: Metadata = {
   title: "Spaces We Clean",
-  description: "Explore the commercial, industrial, and residential spaces Crosen can care for.",
+  description: "Explore commercial, industrial, and move-in/move-out spaces Crosen can care for.",
   openGraph: {
     title: "Spaces We Clean — Crosen",
     description: "Cleaning for your office, industrial facility, and home.",

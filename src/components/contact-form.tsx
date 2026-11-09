@@ -64,7 +64,7 @@ export function ContactForm() {
           </option>
           <option>Commercial cleaning</option>
           <option>Industrial cleaning</option>
-          <option>Residential cleaning</option>
+          <option>Move in move out cleaning</option>
         </select>
       </label>
       <label className="text-sm font-semibold md:col-span-2">

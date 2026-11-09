@@ -30,6 +30,8 @@ export function Header() {
             className="h-20 w-40 object-contain md:h-24 md:w-48"
             width={1152}
             height={768}
+            sizes="(min-width: 768px) 192px, 160px"
+            quality={85}
             priority
           />
         </Link>

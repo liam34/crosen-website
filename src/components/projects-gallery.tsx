@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/lib/content";
 
-const filters = ["All", "Commercial", "Industrial", "Residential"] as const;
+const filters = ["All", "Commercial", "Industrial", "Move in move out cleaning"] as const;
 type ProjectFilter = (typeof filters)[number];
 
 export function ProjectsGallery() {
@@ -34,13 +34,14 @@ export function ProjectsGallery() {
                 src={project.image}
                 alt={project.title}
                 fill
-                sizes="(max-width: 767px) 100vw, 33vw"
+                sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) 30vw, 389px"
+                quality={85}
                 className="img-zoom object-cover"
               />
             </div>
             <figcaption className="mt-4">
               <span className="text-xl font-bold">{project.title}</span>
-              <p className="mt-2 text-sm text-muted-foreground">{project.type} spaces</p>
+              <p className="mt-2 text-sm text-muted-foreground">{project.type}</p>
             </figcaption>
           </figure>
         ))}

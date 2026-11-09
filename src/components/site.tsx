@@ -15,11 +15,13 @@ export function Footer() {
             className="h-32 w-56 object-contain"
             width={1152}
             height={768}
+            sizes="224px"
+            quality={85}
           />
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
             A cleaner space. A brighter day.
             <br />
-            Commercial, industrial, and residential cleaning.
+            Commercial, industrial, and move-in/move-out cleaning.
           </p>
         </div>
         <div className="space-y-4 text-sm">
@@ -55,7 +57,7 @@ export function Footer() {
       </div>
       <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3 border-t px-6 py-6 text-xs text-muted-foreground">
         <span>© {new Date().getFullYear()} Crosen Cleaning Services Inc.</span>
-        <span>Commercial · Industrial · Residential</span>
+        <span>Commercial · Industrial · Move in move out cleaning</span>
       </div>
     </footer>
   );
@@ -74,7 +76,7 @@ export function PageHero({
 }) {
   return (
     <section className="relative flex min-h-[420px] items-center overflow-hidden bg-secondary md:min-h-[480px]">
-      <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+      <Image src={image} alt="" fill priority sizes="100vw" quality={85} className="object-cover" />
       <div className="absolute inset-0 bg-hero-fade" />
       <div className="relative mx-auto w-full max-w-7xl px-6 py-20">
         <p className="eyebrow">{eyebrow}</p>

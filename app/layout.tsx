@@ -21,12 +21,13 @@ export const metadata: Metadata = {
     default: "Crosen Cleaning Services Inc.",
     template: "%s | Crosen Cleaning Services Inc.",
   },
-  description: "Commercial, industrial, and residential cleaning. A cleaner space. A brighter day.",
+  description:
+    "Commercial, industrial, and move-in/move-out cleaning. A cleaner space. A brighter day.",
   openGraph: {
     type: "website",
     title: "Crosen Cleaning Services Inc.",
     description:
-      "Commercial, industrial, and residential cleaning. A cleaner space. A brighter day.",
+      "Commercial, industrial, and move-in/move-out cleaning. A cleaner space. A brighter day.",
   },
   twitter: {
     card: "summary_large_image",

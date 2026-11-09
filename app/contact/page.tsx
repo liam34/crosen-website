@@ -5,7 +5,7 @@ import { PageHero } from "@/components/site";
 
 export const metadata: Metadata = {
   title: "Get a Cleaning Quote",
-  description: "Tell Crosen about your commercial, industrial, or residential cleaning needs.",
+  description: "Tell Crosen about your commercial, industrial, or move-in/move-out cleaning needs.",
   openGraph: {
     title: "Get a Cleaning Quote — Crosen",
     description: "Start a conversation about a cleaner home or workplace.",
@@ -26,7 +26,7 @@ export default function ContactPage() {
           <div className="mt-8 space-y-3 text-sm font-semibold">
             <p>Commercial cleaning</p>
             <p>Industrial cleaning</p>
-            <p>Residential cleaning</p>
+            <p>Move in move out cleaning</p>
           </div>
         </div>
         <ContactForm />

@@ -11,11 +11,11 @@ import { services } from "@/lib/content";
 export const metadata: Metadata = {
   title: "A Cleaner Space",
   description:
-    "Crosen Cleaning Services offers commercial, industrial, and residential cleaning for spaces that feel their best.",
+    "Crosen Cleaning Services offers commercial, industrial, and move-in/move-out cleaning for spaces that feel their best.",
   openGraph: {
     title: "Crosen Cleaning Services Inc. — A Cleaner Space",
     description:
-      "Commercial, industrial, and residential cleaning. A cleaner space. A brighter day.",
+      "Commercial, industrial, and move-in/move-out cleaning. A cleaner space. A brighter day.",
   },
 };
 
@@ -31,6 +31,7 @@ export default function HomePage() {
           fill
           priority
           sizes="100vw"
+          quality={85}
           className="object-cover object-right"
         />
         <div className="absolute inset-0 bg-hero-fade" />
@@ -44,7 +45,7 @@ export default function HomePage() {
             Cleaning Services<span className="text-primary">.</span>
           </h1>
           <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-            Fresh spaces for the way you live and work. Commercial, industrial, and residential
+            Fresh spaces for the way you live and work. Commercial, industrial, and move-in/move-out
             cleaning with care in every detail.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -79,7 +80,7 @@ export default function HomePage() {
                 className="flex flex-col items-center justify-center gap-3 border-r text-center last:border-r-0 md:flex-row md:gap-4"
               >
                 <Icon className="size-6 text-primary" />
-                <span className="text-xs font-bold md:text-base">{service.type} cleaning</span>
+                <span className="text-xs font-bold md:text-base">{service.title}</span>
               </Link>
             );
           })}
@@ -106,7 +107,8 @@ export default function HomePage() {
                   src={service.image}
                   alt={service.title}
                   fill
-                  sizes="(max-width: 767px) 100vw, 33vw"
+                  sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) 30vw, 389px"
+                  quality={85}
                   className="img-zoom object-cover"
                 />
                 <span className="absolute bottom-4 left-4 rounded-sm bg-background px-3 py-1 text-xs font-bold text-primary">
@@ -128,9 +130,10 @@ export default function HomePage() {
           <div className="relative aspect-[5/4] w-full overflow-hidden rounded-md">
             <Image
               src={home}
-              alt="A fresh, clean residential living room"
+              alt="A fresh, clean living room"
               fill
-              sizes="(max-width: 767px) 100vw, 50vw"
+              sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(50vw - 3rem), 592px"
+              quality={85}
               className="object-cover"
             />
           </div>

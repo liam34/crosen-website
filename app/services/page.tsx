@@ -6,10 +6,11 @@ import { services } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Cleaning Services",
-  description: "Explore commercial, industrial, and residential cleaning from Crosen.",
+  description: "Explore commercial, industrial, and move-in/move-out cleaning from Crosen.",
   openGraph: {
     title: "Cleaning Services — Crosen",
-    description: "Cleaning care for your home, workplace, and industrial facility.",
+    description:
+      "Cleaning care for workplaces, industrial facilities, and move-in/move-out spaces.",
   },
 };
 
@@ -33,7 +34,8 @@ export default function ServicesPage() {
                 src={service.image}
                 alt={service.title}
                 fill
-                sizes="(max-width: 767px) 100vw, 50vw"
+                sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(50vw - 3rem), 592px"
+                quality={85}
                 className="img-zoom object-cover"
               />
             </div>

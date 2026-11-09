@@ -7,7 +7,7 @@ import { CtaBand, PageHero } from "@/components/site";
 export const metadata: Metadata = {
   title: "About Crosen",
   description:
-    "Get to know Crosen’s thoughtful approach to commercial, industrial, and residential cleaning.",
+    "Get to know Crosen’s thoughtful approach to commercial, industrial, and move-in/move-out cleaning.",
   openGraph: {
     title: "About Crosen Cleaning Services Inc.",
     description: "A cleaner space. A brighter day. Discover the Crosen approach.",
@@ -29,7 +29,7 @@ export default function AboutPage() {
         <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
           <p>
             Crosen Cleaning Services Inc. brings a fresh approach to commercial, industrial, and
-            residential spaces.
+            move-in/move-out cleaning.
           </p>
           <p>
             We believe cleaning is about more than appearances. It’s about a welcoming home, a
@@ -43,7 +43,8 @@ export default function AboutPage() {
             src={home}
             alt="A welcoming clean living space"
             fill
-            sizes="(max-width: 767px) 100vw, 1200px"
+            sizes="(max-width: 1279px) calc(100vw - 3rem), 1232px"
+            quality={85}
             className="object-cover"
           />
         </div>
