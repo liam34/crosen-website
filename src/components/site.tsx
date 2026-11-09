@@ -36,6 +36,9 @@ export function Footer() {
           <Link href="/about" className="block text-muted-foreground hover:text-primary">
             About Crosen
           </Link>
+          <Link href="/find-us" className="block text-muted-foreground hover:text-primary">
+            Find Us
+          </Link>
           <Link href="/contact" className="block text-muted-foreground hover:text-primary">
             Contact
           </Link>

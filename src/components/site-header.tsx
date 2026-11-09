@@ -13,6 +13,7 @@ const nav = [
   { href: "/services", label: "Our services" },
   { href: "/projects", label: "Spaces we clean" },
   { href: "/about", label: "About Crosen" },
+  { href: "/find-us", label: "Find Us" },
 ] as const;
 
 export function Header() {
