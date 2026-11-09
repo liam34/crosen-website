@@ -23,6 +23,10 @@ export default function FindUsPage() {
           </p>
           <div className="mt-6 space-y-2 text-sm text-blue-700">
             <p>
+              <span className="font-semibold">Our Address:</span> 4004 97 St NW, Edmonton, AB T6E
+              6N1
+            </p>
+            <p>
               <span className="font-semibold">Hours:</span> Weekdays, 8:00 AM–4:00 PM
             </p>
             <p>

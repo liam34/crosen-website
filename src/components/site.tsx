@@ -50,7 +50,7 @@ export function Footer() {
           <p className="font-bold">Let’s freshen things up.</p>
           <p className="mt-4 text-sm text-muted-foreground">Tell us about your space.</p>
           <Button asChild variant="link" className="mt-3 px-0">
-            <Link href="/contact#quote-form">
+            <Link href="/find-us">
               Talk to Crosen <ArrowUpRight />
             </Link>
           </Button>
