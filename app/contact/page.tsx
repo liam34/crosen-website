@@ -15,21 +15,31 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero image={home} eyebrow="Talk to Crosen" title="Let’s freshen up your space." />
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-[1fr_1.5fr]">
-        <div>
-          <p className="eyebrow">Get a quote</p>
-          <h2 className="mt-4 text-3xl font-bold">Every fresh start begins with a conversation.</h2>
-          <p className="mt-5 leading-relaxed text-muted-foreground">
-            Tell us about your space and the cleaning you have in mind.
-          </p>
-          <div className="mt-8 space-y-3 text-sm font-semibold">
-            <p>Commercial cleaning</p>
-            <p>Industrial cleaning</p>
-            <p>Move in move out cleaning</p>
+      <PageHero
+        image={home}
+        eyebrow="Talk to Crosen"
+        title="Let’s freshen up your space."
+        compact
+      />
+      <section
+        id="quote-form"
+        aria-labelledby="quote-heading"
+        className="scroll-mt-32 bg-secondary"
+      >
+        <div className="mx-auto max-w-4xl px-6 py-12 md:py-16">
+          <div className="mx-auto mb-8 max-w-2xl text-center">
+            <p className="eyebrow">Get a quote</p>
+            <h2 id="quote-heading" className="mt-4 text-3xl font-bold">
+              Every fresh start begins with a conversation.
+            </h2>
+            <p className="mt-5 leading-relaxed text-muted-foreground">
+              Tell us about your space and the cleaning you have in mind.
+            </p>
+          </div>
+          <div className="rounded-2xl border bg-background p-6 shadow-sm md:p-10">
+            <ContactForm />
           </div>
         </div>
-        <ContactForm />
       </section>
     </>
   );

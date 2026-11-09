@@ -52,7 +52,7 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <Button asChild className="hidden h-12 sm:inline-flex">
-            <Link href="/contact">
+            <Link href="/contact#quote-form">
               Get a quote <ArrowUpRight />
             </Link>
           </Button>
@@ -82,7 +82,7 @@ export function Header() {
             </Link>
           ))}
           <Link
-            href="/contact"
+            href="/contact#quote-form"
             onClick={() => setOpen(false)}
             className="font-semibold text-primary"
           >

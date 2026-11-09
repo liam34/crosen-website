@@ -50,7 +50,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="h-13">
-              <Link href="/contact">
+              <Link href="/contact#quote-form">
                 Get a quote <ArrowUpRight />
               </Link>
             </Button>

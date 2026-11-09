@@ -3,6 +3,7 @@ import Image, { type ImageProps } from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   return (
@@ -49,7 +50,7 @@ export function Footer() {
           <p className="font-bold">Let’s freshen things up.</p>
           <p className="mt-4 text-sm text-muted-foreground">Tell us about your space.</p>
           <Button asChild variant="link" className="mt-3 px-0">
-            <Link href="/contact">
+            <Link href="/contact#quote-form">
               Talk to Crosen <ArrowUpRight />
             </Link>
           </Button>
@@ -68,17 +69,29 @@ export function PageHero({
   eyebrow,
   title,
   children,
+  compact = false,
 }: {
   image: ImageProps["src"];
   eyebrow: string;
   title: string;
   children?: ReactNode;
+  compact?: boolean;
 }) {
   return (
-    <section className="relative flex min-h-[420px] items-center overflow-hidden bg-secondary md:min-h-[480px]">
+    <section
+      className={cn(
+        "relative flex items-center overflow-hidden bg-secondary",
+        compact ? "min-h-[190px] md:min-h-[220px]" : "min-h-[420px] md:min-h-[480px]",
+      )}
+    >
       <Image src={image} alt="" fill priority sizes="100vw" quality={85} className="object-cover" />
       <div className="absolute inset-0 bg-hero-fade" />
-      <div className="relative mx-auto w-full max-w-7xl px-6 py-20">
+      <div
+        className={cn(
+          "relative mx-auto w-full max-w-7xl px-6",
+          compact ? "py-8 md:py-10" : "py-20",
+        )}
+      >
         <p className="eyebrow">{eyebrow}</p>
         <h1 className="mt-5 max-w-2xl text-4xl font-bold leading-tight md:text-6xl">{title}</h1>
         {children}
@@ -97,7 +110,7 @@ export function CtaBand() {
           <p className="mt-3 text-ink-foreground/75">Let’s make your space feel its best.</p>
         </div>
         <Button asChild size="lg" className="h-14 bg-fresh text-fresh-foreground hover:bg-fresh/90">
-          <Link href="/contact">
+          <Link href="/contact#quote-form">
             Get a cleaning quote <ArrowUpRight />
           </Link>
         </Button>
