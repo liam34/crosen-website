@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 .next
+*.next.config*
 out
 dist
 dist-ssr
