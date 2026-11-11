@@ -1,7 +1,7 @@
 const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [85],
+    qualities: [75],
   },
 };
 

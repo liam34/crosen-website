@@ -35,7 +35,7 @@ export function ProjectsGallery() {
                 alt={project.title}
                 fill
                 sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) 30vw, 389px"
-                quality={85}
+                quality={75}
                 className="img-zoom object-cover"
               />
             </div>

@@ -31,7 +31,7 @@ export function Header() {
             width={1152}
             height={768}
             sizes="(min-width: 768px) 192px, 160px"
-            quality={85}
+            quality={75}
             priority
           />
         </Link>

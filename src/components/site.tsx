@@ -17,7 +17,7 @@ export function Footer() {
             width={1152}
             height={768}
             sizes="224px"
-            quality={85}
+            quality={75}
           />
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
             A cleaner space. A brighter day.
@@ -84,7 +84,7 @@ export function PageHero({
         compact ? "min-h-[190px] md:min-h-[220px]" : "min-h-[420px] md:min-h-[480px]",
       )}
     >
-      <Image src={image} alt="" fill priority sizes="100vw" quality={85} className="object-cover" />
+      <Image src={image} alt="" fill priority sizes="100vw" quality={75} className="object-cover" />
       <div className="absolute inset-0 bg-hero-fade" />
       <div
         className={cn(

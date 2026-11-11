@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import office from "@/assets/crosen-office.jpg";
+import office from "@/assets/crosen-office.webp";
 import { CtaBand, PageHero } from "@/components/site";
 import { services } from "@/lib/content";
 
@@ -37,7 +37,7 @@ export default function ServicesPage() {
                 alt={service.title}
                 fill
                 sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(50vw - 3rem), 592px"
-                quality={85}
+                quality={75}
                 className="img-zoom object-cover"
               />
             </div>

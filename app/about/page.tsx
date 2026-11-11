@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import office from "@/assets/crosen-office.jpg";
-import home from "@/assets/crosen-home.jpg";
+import office from "@/assets/crosen-office.webp";
+import home from "@/assets/crosen-home.webp";
 import { CtaBand, PageHero } from "@/components/site";
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default function AboutPage() {
             alt="A welcoming clean living space"
             fill
             sizes="(max-width: 1279px) calc(100vw - 3rem), 1232px"
-            quality={85}
+            quality={75}
             className="object-cover"
           />
         </div>

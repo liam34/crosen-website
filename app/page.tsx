@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Building2, Check, Factory, House, Sparkles } from "lucide-react";
-import hero from "@/assets/crosen-office.jpg";
-import home from "@/assets/crosen-home.jpg";
+import hero from "@/assets/crosen-office.webp";
+import home from "@/assets/crosen-home.webp";
 import { CtaBand } from "@/components/site";
 import { Button } from "@/components/ui/button";
 import { services } from "@/lib/content";
@@ -33,7 +33,7 @@ export default function HomePage() {
           priority
           fetchPriority="high"
           sizes="100vw"
-          quality={85}
+          quality={75}
           className="object-cover object-right"
         />
         <div className="absolute inset-0 bg-hero-fade" />
@@ -110,7 +110,7 @@ export default function HomePage() {
                   alt={service.title}
                   fill
                   sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) 30vw, 389px"
-                  quality={85}
+                  quality={75}
                   className="img-zoom object-cover"
                 />
                 <span className="absolute bottom-4 left-4 rounded-sm bg-background px-3 py-1 text-xs font-bold text-primary">
@@ -135,7 +135,7 @@ export default function HomePage() {
               alt="A fresh, clean living room"
               fill
               sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1279px) calc(50vw - 3rem), 592px"
-              quality={85}
+              quality={75}
               className="object-cover"
             />
           </div>

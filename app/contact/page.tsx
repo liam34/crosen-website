@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import home from "@/assets/crosen-home.jpg";
+import home from "@/assets/crosen-home.webp";
 import { ContactForm } from "@/components/contact-form";
 import { PageHero } from "@/components/site";
 
