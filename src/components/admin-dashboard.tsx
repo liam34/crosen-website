@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { Fragment, useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { services } from "@/lib/content";
 
@@ -134,6 +134,9 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
   const [loadingBookings, setLoadingBookings] = useState(initialAuthenticated);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [feedback, setFeedback] = useState("");
+  const [notice, setNotice] = useState("");
+  const [expandedBookingId, setExpandedBookingId] = useState<string | null>(null);
+  const [deletingBookingId, setDeletingBookingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authenticated) return;
@@ -141,6 +144,7 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
     let active = true;
     async function loadBookings() {
       setFeedback("");
+      setNotice("");
 
       try {
         const response = await fetch("/api/admin/bookings", { cache: "no-store" });
@@ -208,13 +212,47 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
 
   async function handleLogout() {
     setFeedback("");
+    setNotice("");
     try {
       const response = await fetch("/api/admin/session", { method: "DELETE" });
       if (!response.ok) throw new Error("Unable to sign out. Please try again.");
       setBookings([]);
+      setExpandedBookingId(null);
       setAuthenticated(false);
     } catch (error) {
       setFeedback(error instanceof Error ? error.message : "Unable to sign out.");
+    }
+  }
+
+  async function handleDelete(booking: Booking) {
+    if (
+      !window.confirm(`Delete the booking request from ${booking.fullName}? This cannot be undone.`)
+    ) {
+      return;
+    }
+
+    setDeletingBookingId(booking.id);
+    setFeedback("");
+    setNotice("");
+
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: booking.id }),
+      });
+      const body: unknown = await response.json();
+      if (!response.ok) {
+        throw new Error(errorMessage(body, "Unable to delete booking."));
+      }
+
+      setBookings((current) => current.filter((item) => item.id !== booking.id));
+      setExpandedBookingId((current) => (current === booking.id ? null : current));
+      setNotice("Booking deleted.");
+    } catch (error) {
+      setFeedback(error instanceof Error ? error.message : "Unable to delete booking.");
+    } finally {
+      setDeletingBookingId(null);
     }
   }
 
@@ -281,6 +319,11 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
           {feedback}
         </p>
       )}
+      {notice && (
+        <p className="mb-5 text-sm text-primary" role="status">
+          {notice}
+        </p>
+      )}
 
       {loadingBookings ? (
         <p className="rounded-xl border bg-background p-6 text-muted-foreground" role="status">
@@ -291,21 +334,97 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
           No booking requests yet.
         </p>
       ) : (
-        <div className="grid gap-4">
-          {bookings.map((booking) => (
-            <article key={booking.id} className="rounded-xl border bg-background p-5 md:p-7">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <h2 className="text-xl font-bold">{booking.fullName}</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">Reference: {booking.id}</p>
-                </div>
-                <span className="rounded-full bg-secondary px-3 py-1 text-sm font-semibold capitalize">
-                  {booking.status}
-                </span>
-              </div>
-              <BookingDetails booking={booking} />
-            </article>
-          ))}
+        <div className="overflow-x-auto rounded-xl border bg-background">
+          <table className="w-full min-w-[850px] text-left text-sm">
+            <caption className="sr-only">Booking requests</caption>
+            <thead className="border-b bg-secondary/40 text-muted-foreground">
+              <tr>
+                <th scope="col" className="px-4 py-3 font-semibold">
+                  Request
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold">
+                  Service
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold">
+                  Preferred date
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold">
+                  Status
+                </th>
+                <th scope="col" className="px-4 py-3 font-semibold">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y">
+              {bookings.map((booking) => {
+                const isExpanded = expandedBookingId === booking.id;
+
+                return (
+                  <Fragment key={booking.id}>
+                    <tr>
+                      <td className="px-4 py-4 align-top">
+                        <p className="font-semibold text-foreground">{booking.fullName}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Reference: {booking.id}
+                        </p>
+                      </td>
+                      <td className="px-4 py-4 align-top">{serviceLabel(booking.serviceType)}</td>
+                      <td className="px-4 py-4 align-top">
+                        {formatDate(booking.bookingDate)}
+                        <span className="mt-1 block text-xs text-muted-foreground">
+                          {booking.bookingTime} Mountain Time
+                        </span>
+                      </td>
+                      <td className="px-4 py-4 align-top">
+                        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold capitalize">
+                          {booking.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4 align-top">
+                        <div className="flex items-center gap-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            aria-expanded={isExpanded}
+                            aria-controls={`booking-details-${booking.id}`}
+                            onClick={() =>
+                              setExpandedBookingId((current) =>
+                                current === booking.id ? null : booking.id,
+                              )
+                            }
+                          >
+                            Details
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            size="sm"
+                            disabled={deletingBookingId === booking.id}
+                            onClick={() => void handleDelete(booking)}
+                          >
+                            {deletingBookingId === booking.id ? "Deleting…" : "Delete"}
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                    {isExpanded && (
+                      <tr>
+                        <td
+                          id={`booking-details-${booking.id}`}
+                          colSpan={5}
+                          className="bg-secondary/20 px-4 py-4"
+                        >
+                          <BookingDetails booking={booking} />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
