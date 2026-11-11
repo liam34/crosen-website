@@ -19,3 +19,41 @@ npm start
 npm test
 npm run lint
 ```
+
+## Online booking with Turso
+
+The `/booking` page stores booking requests in the Turso `bookings` table. Create a Turso database, then apply the schema from the repository root:
+
+```sh
+turso auth login
+turso db create crosen-bookings
+turso db shell crosen-bookings < schema.sql
+turso db show crosen-bookings --url
+turso db tokens create crosen-bookings
+```
+
+Keep the URL and token private. Add them to the root `.env.local` for local development without replacing other entries in that file:
+
+```dotenv
+TURSO_DATABASE_URL=libsql://your-database-your-org.turso.io
+TURSO_AUTH_TOKEN=your-turso-auth-token
+```
+
+### Hostinger deployment
+
+Deploy this as a Node.js/Next.js application that runs the Next.js server (`npm run build` followed by `npm start`); a static-only deployment cannot run `/api/bookings`.
+
+1. In Hostinger hPanel, open the production Node.js/Web App for `crosenclean.ca`.
+2. In its environment-variable settings, add `TURSO_DATABASE_URL` with the value from `turso db show crosen-bookings --url`.
+3. Add `TURSO_AUTH_TOKEN` with the value returned by `turso db tokens create crosen-bookings`. Use a database-scoped token and never prefix either variable with `NEXT_PUBLIC_`.
+4. Save the settings and restart or redeploy the production app so the Node.js process loads them. Do not commit `.env.local` or paste tokens into source code.
+5. Submit a test booking. A successful response displays a booking reference; verify it in the Turso SQL shell:
+
+   ```sql
+   SELECT id, service_type, booking_date, booking_time, status, created_at
+   FROM bookings
+   ORDER BY created_at DESC
+   LIMIT 5;
+   ```
+
+The API returns a configuration error if either variable is missing and a generic storage error if the database insert fails. Check Hostinger's server logs for the underlying database error; never log or share the auth token.

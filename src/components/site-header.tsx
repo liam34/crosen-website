@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 const nav = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Our services" },
+  { href: "/booking", label: "Book a cleaning" },
   { href: "/projects", label: "Spaces we clean" },
   { href: "/about", label: "About Crosen" },
   { href: "/find-us", label: "Find Us" },
