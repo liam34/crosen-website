@@ -56,9 +56,23 @@ export function Footer() {
           </Button>
         </div>
       </div>
-      <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3 border-t px-6 py-6 text-xs text-muted-foreground">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 border-t px-6 py-6 text-xs text-muted-foreground">
         <span>© {new Date().getFullYear()} Crosen Cleaning Services Inc.</span>
         <span>Commercial · Industrial · Move in move out cleaning</span>
+        <a
+          href="https://squarevendo.com"
+          aria-label="Website by Square Vendo Website Studio"
+          className="ml-auto shrink-0"
+        >
+          <Image
+            src="/squarevendo-logo.png"
+            alt="Square Vendo Website Studio"
+            width={64}
+            height={64}
+            sizes="64px"
+            className="size-16 object-contain"
+          />
+        </a>
       </div>
     </footer>
   );
