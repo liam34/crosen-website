@@ -57,3 +57,15 @@ Deploy this as a Node.js/Next.js application that runs the Next.js server (`npm 
    ```
 
 The API returns a configuration error if either variable is missing and a generic storage error if the database insert fails. Check Hostinger's server logs for the underlying database error; never log or share the auth token.
+
+### Private booking admin
+
+The unlinked `/booking/admindashboard` page requires an admin login and is marked `noindex`. Configure these server-side environment variables in Hostinger's production Node.js app:
+
+```dotenv
+ADMIN_EMAIL=admin@crosenclean.ca
+ADMIN_PASSWORD=use-a-unique-random-password-at-least-16-characters-long
+ADMIN_SESSION_SECRET=generate-a-random-secret-at-least-32-bytes-long
+```
+
+Generate a session secret with `openssl rand -hex 32`. Use a unique password from a password manager; never commit either secret or prefix them with `NEXT_PUBLIC_`. Save the variables and restart/redeploy the app. Sign-in creates an eight-hour, signed, `HttpOnly`, `Secure` (in production), `SameSite=Strict` session cookie. Login attempts are rate-limited per client IP in each Node.js process; also enable Hostinger-side rate limiting if the app runs multiple instances.
