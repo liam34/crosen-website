@@ -58,6 +58,16 @@ Deploy this as a Node.js/Next.js application that runs the Next.js server (`npm 
 
 The API returns a configuration error if either variable is missing and a generic storage error if the database insert fails. Check Hostinger's server logs for the underlying database error; never log or share the auth token.
 
+### Booking status migration
+
+The admin dashboard supports `pending`, `booked`, and `cancelled` statuses. Before deploying this status update to an existing database, run the one-time migration from the repository root, replacing `YOUR_DATABASE_NAME` with the Turso database name:
+
+```sh
+turso db shell YOUR_DATABASE_NAME < migrations/booking-status.sql
+```
+
+The migration preserves existing bookings, converts any `confirmed` statuses to `booked`, and updates the database constraint. New databases should use `schema.sql` and do not need this migration.
+
 ### Private booking admin
 
 The unlinked `/booking/admindashboard` page requires an admin login and is marked `noindex`. Configure these server-side environment variables in Hostinger's production Node.js app:
@@ -70,4 +80,4 @@ ADMIN_SESSION_SECRET=generate-a-random-secret-at-least-32-bytes-long
 
 Generate a session secret with `openssl rand -hex 32`. Use a unique password from a password manager; never commit either secret or prefix them with `NEXT_PUBLIC_`. Save the variables and restart/redeploy the app. Sign-in creates an eight-hour, signed, `HttpOnly`, `Secure` (in production), `SameSite=Strict` session cookie. Login attempts are rate-limited per client IP in each Node.js process; also enable Hostinger-side rate limiting if the app runs multiple instances.
 
-The dashboard lists the latest 100 requests in a table. Use **Details** to expand a request, or **Delete** to permanently remove it from Turso after confirming.
+The dashboard lists the latest 100 requests in a table. Use the status dropdown to mark a request pending, booked, or cancelled; **Details** expands a request, and **Delete** permanently removes it from Turso after confirming.

@@ -2,6 +2,11 @@
 
 import { Fragment, useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  adminBookingStatuses,
+  isAdminBookingStatus,
+  type AdminBookingStatus,
+} from "@/lib/admin-booking-status";
 import { services } from "@/lib/content";
 
 type Booking = {
@@ -15,7 +20,7 @@ type Booking = {
   bookingTime: string;
   squareFootage: string | null;
   notes: string | null;
-  status: string;
+  status: AdminBookingStatus;
   createdAt: string;
 };
 
@@ -52,7 +57,7 @@ function isBooking(value: unknown): value is Booking {
     "notes" in value &&
     (typeof value.notes === "string" || value.notes === null) &&
     "status" in value &&
-    typeof value.status === "string" &&
+    isAdminBookingStatus(value.status) &&
     "createdAt" in value &&
     typeof value.createdAt === "string"
   );
@@ -137,6 +142,7 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
   const [notice, setNotice] = useState("");
   const [expandedBookingId, setExpandedBookingId] = useState<string | null>(null);
   const [deletingBookingId, setDeletingBookingId] = useState<string | null>(null);
+  const [updatingBookingId, setUpdatingBookingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!authenticated) return;
@@ -253,6 +259,35 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
       setFeedback(error instanceof Error ? error.message : "Unable to delete booking.");
     } finally {
       setDeletingBookingId(null);
+    }
+  }
+
+  async function handleStatusChange(booking: Booking, status: AdminBookingStatus) {
+    if (booking.status === status) return;
+
+    setUpdatingBookingId(booking.id);
+    setFeedback("");
+    setNotice("");
+
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: booking.id, status }),
+      });
+      const body: unknown = await response.json();
+      if (!response.ok) {
+        throw new Error(errorMessage(body, "Unable to update booking status."));
+      }
+
+      setBookings((current) =>
+        current.map((item) => (item.id === booking.id ? { ...item, status } : item)),
+      );
+      setNotice("Booking status updated.");
+    } catch (error) {
+      setFeedback(error instanceof Error ? error.message : "Unable to update booking status.");
+    } finally {
+      setUpdatingBookingId(null);
     }
   }
 
@@ -377,9 +412,24 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
                         </span>
                       </td>
                       <td className="px-4 py-4 align-top">
-                        <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold capitalize">
-                          {booking.status}
-                        </span>
+                        <select
+                          aria-label={`Status for ${booking.fullName}`}
+                          className="h-9 rounded-md border border-input bg-background px-3 text-sm capitalize"
+                          disabled={updatingBookingId !== null}
+                          value={booking.status}
+                          onChange={(event) => {
+                            const status = event.target.value;
+                            if (isAdminBookingStatus(status)) {
+                              void handleStatusChange(booking, status);
+                            }
+                          }}
+                        >
+                          {adminBookingStatuses.map((status) => (
+                            <option key={status} value={status} className="capitalize">
+                              {status}
+                            </option>
+                          ))}
+                        </select>
                       </td>
                       <td className="px-4 py-4 align-top">
                         <div className="flex items-center gap-2">

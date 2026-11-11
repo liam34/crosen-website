@@ -20,13 +20,21 @@ vi.mock("@/lib/turso", () => ({
   getTursoClient: () => ({ execute: mocks.execute }),
 }));
 
-import { DELETE } from "../../app/api/admin/bookings/route";
+import { DELETE, PATCH } from "../../app/api/admin/bookings/route";
 
 const bookingId = "3093d400-748b-4e0b-8129-46d2fb87e1bc";
 
 function deleteRequest(body: unknown = { id: bookingId }) {
   return new Request("http://localhost/api/admin/bookings", {
     method: "DELETE",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+}
+
+function statusRequest(body: unknown = { id: bookingId, status: "booked" }) {
+  return new Request("http://localhost/api/admin/bookings", {
+    method: "PATCH",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(body),
   });
@@ -51,6 +59,45 @@ describe("admin bookings DELETE API", () => {
     expect(mocks.execute).toHaveBeenCalledWith({
       sql: "DELETE FROM bookings WHERE id = ?",
       args: [bookingId],
+    });
+  });
+
+  describe("admin bookings PATCH API", () => {
+    beforeEach(() => {
+      vi.clearAllMocks();
+      mocks.getAdminConfiguration.mockReturnValue({
+        email: "admin@crosenclean.ca",
+        password: "test-password-that-is-long-enough",
+        sessionKey: new Uint8Array(32),
+      });
+      mocks.hasValidAdminSession.mockResolvedValue(true);
+      mocks.execute.mockResolvedValue({ rowsAffected: 1 });
+    });
+
+    it("updates a booking to a permitted status after authentication", async () => {
+      const response = await PATCH(statusRequest());
+
+      expect(response.status).toBe(200);
+      expect(mocks.execute).toHaveBeenCalledWith({
+        sql: "UPDATE bookings SET status = ? WHERE id = ?",
+        args: ["booked", bookingId],
+      });
+    });
+
+    it("rejects unsupported statuses", async () => {
+      const response = await PATCH(statusRequest({ id: bookingId, status: "confirmed" }));
+
+      expect(response.status).toBe(400);
+      expect(mocks.execute).not.toHaveBeenCalled();
+    });
+
+    it("rejects unauthenticated status changes", async () => {
+      mocks.hasValidAdminSession.mockResolvedValue(false);
+
+      const response = await PATCH(statusRequest());
+
+      expect(response.status).toBe(401);
+      expect(mocks.execute).not.toHaveBeenCalled();
     });
   });
 

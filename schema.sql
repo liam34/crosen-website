@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS bookings (
   booking_time TEXT NOT NULL CHECK (booking_time IN ('09:00-12:00', '13:00-16:00')),
   square_footage TEXT,
   notes TEXT,
-  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled')),
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'booked', 'cancelled')),
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
