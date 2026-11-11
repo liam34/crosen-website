@@ -69,3 +69,5 @@ ADMIN_SESSION_SECRET=generate-a-random-secret-at-least-32-bytes-long
 ```
 
 Generate a session secret with `openssl rand -hex 32`. Use a unique password from a password manager; never commit either secret or prefix them with `NEXT_PUBLIC_`. Save the variables and restart/redeploy the app. Sign-in creates an eight-hour, signed, `HttpOnly`, `Secure` (in production), `SameSite=Strict` session cookie. Login attempts are rate-limited per client IP in each Node.js process; also enable Hostinger-side rate limiting if the app runs multiple instances.
+
+The dashboard lists the latest 100 requests in a table. Use **Details** to expand a request, or **Delete** to permanently remove it from Turso after confirming.
