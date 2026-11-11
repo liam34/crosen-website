@@ -9,13 +9,14 @@ import { Button } from "@/components/ui/button";
 import { services } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "A Cleaner Space",
+  title: "Cleaning Services in Edmonton, AB",
   description:
-    "Crosen Cleaning Services offers commercial, industrial, and move-in/move-out cleaning for spaces that feel their best.",
+    "Crosen Cleaning Services Inc. provides commercial, industrial, and move-in/move-out cleaning in Edmonton, Alberta. Call 780-884-1244 for a quote.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Crosen Cleaning Services Inc. — A Cleaner Space",
-    description:
-      "Commercial, industrial, and move-in/move-out cleaning. A cleaner space. A brighter day.",
+    title: "Cleaning Services in Edmonton, AB — Crosen",
+    url: "/",
+    description: "Commercial, industrial, and move-in/move-out cleaning in Edmonton, Alberta.",
   },
 };
 
@@ -30,6 +31,7 @@ export default function HomePage() {
           alt="Professional cleaners caring for a bright office"
           fill
           priority
+          fetchPriority="high"
           sizes="100vw"
           quality={85}
           className="object-cover object-right"

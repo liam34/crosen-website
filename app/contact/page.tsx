@@ -6,8 +6,10 @@ import { PageHero } from "@/components/site";
 export const metadata: Metadata = {
   title: "Get a Cleaning Quote",
   description: "Tell Crosen about your commercial, industrial, or move-in/move-out cleaning needs.",
+  alternates: { canonical: "/contact" },
   openGraph: {
     title: "Get a Cleaning Quote — Crosen",
+    url: "/contact",
     description: "Start a conversation about a cleaner home or workplace.",
   },
 };

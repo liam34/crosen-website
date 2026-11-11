@@ -7,8 +7,10 @@ import { services } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Cleaning Services",
   description: "Explore commercial, industrial, and move-in/move-out cleaning from Crosen.",
+  alternates: { canonical: "/services" },
   openGraph: {
     title: "Cleaning Services — Crosen",
+    url: "/services",
     description:
       "Cleaning care for workplaces, industrial facilities, and move-in/move-out spaces.",
   },

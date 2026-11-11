@@ -8,8 +8,10 @@ export const metadata: Metadata = {
   title: "About Crosen",
   description:
     "Get to know Crosen’s thoughtful approach to commercial, industrial, and move-in/move-out cleaning.",
+  alternates: { canonical: "/about" },
   openGraph: {
     title: "About Crosen Cleaning Services Inc.",
+    url: "/about",
     description: "A cleaner space. A brighter day. Discover the Crosen approach.",
   },
 };

@@ -9,6 +9,12 @@ const mapEmbedUrl =
 export const metadata: Metadata = {
   title: "Find Us",
   description: "Find the Crosen Cleaning Services Inc. office and get directions with Google Maps.",
+  alternates: { canonical: "/find-us" },
+  openGraph: {
+    title: "Find Crosen Cleaning Services in Edmonton",
+    url: "/find-us",
+    description: "Visit Crosen at 4004 97 St NW, Edmonton, AB T6E 6N1.",
+  },
 };
 
 export default function FindUsPage() {
