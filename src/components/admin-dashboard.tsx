@@ -232,7 +232,7 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
 
   async function handleDelete(booking: Booking) {
     if (
-      !window.confirm(`Delete the booking request from ${booking.fullName}? This cannot be undone.`)
+      !window.confirm(`Delete the current request for ${booking.fullName}? This cannot be undone.`)
     ) {
       return;
     }
