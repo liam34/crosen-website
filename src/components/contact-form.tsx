@@ -1,36 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { services } from "@/lib/content";
 
 const field = "w-full border-b-2 bg-transparent py-3 outline-none transition focus:border-primary";
 
-export function ContactForm() {
-  const [sent, setSent] = useState(false);
+type SubmissionStatus = "idle" | "loading" | "success" | "error";
 
-  if (sent) {
-    return (
-      <div className="border-l-4 border-fresh bg-secondary p-8">
-        <h3 className="text-2xl font-bold">Your details are ready.</h3>
-        <p className="mt-4 text-muted-foreground">
-          This form is a preview only. Your request has not been sent.
-        </p>
-        <Button variant="outline" onClick={() => setSent(false)} className="mt-6">
-          Back to form
-        </Button>
-      </div>
-    );
+export function ContactForm() {
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const [feedback, setFeedback] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setStatus("loading");
+    setFeedback("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          service: formData.get("service"),
+          message: formData.get("message"),
+        }),
+      });
+
+      if (!response.ok) {
+        const result: { error?: string } = await response.json();
+        throw new Error(result.error ?? "We couldn’t send your message. Please try again.");
+      }
+
+      form.reset();
+      setStatus("success");
+      setFeedback("Thanks for reaching out. Your message has been sent.");
+    } catch (error) {
+      setStatus("error");
+      setFeedback(
+        error instanceof Error ? error.message : "We couldn’t send your message. Please try again.",
+      );
+    }
   }
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        setSent(true);
-      }}
-      className="grid gap-7 md:grid-cols-2"
-    >
+    <form onSubmit={handleSubmit} className="grid gap-7 md:grid-cols-2">
       <label className="text-sm font-semibold">
         Name
         <input required name="name" autoComplete="name" placeholder="Your name" className={field} />
@@ -62,13 +83,15 @@ export function ContactForm() {
           <option value="" disabled>
             Select cleaning service
           </option>
-          <option>Commercial cleaning</option>
-          <option>Industrial cleaning</option>
-          <option>Move in move out cleaning</option>
+          {services.map((service) => (
+            <option key={service.n} value={service.title}>
+              {service.title}
+            </option>
+          ))}
         </select>
       </label>
       <label className="text-sm font-semibold md:col-span-2">
-        Your space
+        Your message
         <textarea
           required
           name="message"
@@ -77,11 +100,22 @@ export function ContactForm() {
           className={field}
         />
       </label>
-      <p className="text-xs text-muted-foreground md:col-span-2">
-        Quote requests are not being sent yet.
-      </p>
-      <Button className="h-12 md:col-span-2 md:justify-self-start" type="submit">
-        Preview quote request <ArrowUpRight />
+      {feedback && (
+        <p
+          className={`text-sm md:col-span-2 ${
+            status === "error" ? "text-destructive" : "text-muted-foreground"
+          }`}
+          role={status === "error" ? "alert" : "status"}
+        >
+          {feedback}
+        </p>
+      )}
+      <Button
+        className="h-12 md:col-span-2 md:justify-self-start"
+        type="submit"
+        disabled={status === "loading"}
+      >
+        {status === "loading" ? "Submitting…" : "Submit"} <ArrowUpRight />
       </Button>
     </form>
   );
