@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const mapUrl = "https://share.google/TueFSgv9j8KX6wxDu";
+const officeAddress = "Unit 23, 4004 97 St NW, Edmonton, AB T6E 6N1";
+const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(officeAddress)}`;
 const mapEmbedUrl =
-  "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1s4004+97+St+NW,+Edmonton,+AB+T6E+6N1";
+  "https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sUnit+23,+4004+97+St+NW,+Edmonton,+AB+T6E+6N1";
 
 export const metadata: Metadata = {
   title: "Find Us",
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Find Crosen Cleaning Services in Edmonton",
     url: "/find-us",
-    description: "Visit Crosen at 4004 97 St NW, Edmonton, AB T6E 6N1.",
+    description: `Visit Crosen at ${officeAddress}.`,
   },
 };
 
@@ -29,8 +30,7 @@ export default function FindUsPage() {
           </p>
           <div className="mt-6 space-y-2 text-sm text-blue-700">
             <p>
-              <span className="font-semibold">Our Address:</span> 4004 97 St NW, Edmonton, AB T6E
-              6N1
+              <span className="font-semibold">Our Address:</span> {officeAddress}
             </p>
             <p>
               <span className="font-semibold">Hours:</span> Weekdays, 8:00 AM–4:00 PM

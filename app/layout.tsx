@@ -57,7 +57,7 @@ const businessStructuredData = {
   telephone: "+1-780-884-1244",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "4004 97 St NW",
+    streetAddress: "Unit 23, 4004 97 St NW",
     addressLocality: "Edmonton",
     addressRegion: "AB",
     postalCode: "T6E 6N1",
