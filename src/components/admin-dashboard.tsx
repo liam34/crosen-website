@@ -78,6 +78,11 @@ function formatDate(value: string) {
   }).format(date);
 }
 
+function bookingReference(id: string) {
+  const compactId = id.replaceAll("-", "").slice(0, 12).toUpperCase();
+  return `BK-${compactId.slice(0, 4)}-${compactId.slice(4, 8)}-${compactId.slice(8)}`;
+}
+
 function BookingDetails({ booking }: { booking: Booking }) {
   return (
     <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
@@ -401,7 +406,7 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
                       <td className="px-4 py-4 align-top">
                         <p className="font-semibold text-foreground">{booking.fullName}</p>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          Reference: {booking.id}
+                          Ref: <code>{bookingReference(booking.id)}</code>
                         </p>
                       </td>
                       <td className="px-4 py-4 align-top">{serviceLabel(booking.serviceType)}</td>
