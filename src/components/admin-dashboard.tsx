@@ -8,6 +8,7 @@ import {
   type AdminBookingStatus,
 } from "@/lib/admin-booking-status";
 import { services } from "@/lib/content";
+import { formatBookingReference } from "@/lib/booking-reference";
 
 type Booking = {
   id: string;
@@ -76,11 +77,6 @@ function formatDate(value: string) {
     month: "short",
     day: "numeric",
   }).format(date);
-}
-
-function bookingReference(id: string) {
-  const compactId = id.replaceAll("-", "").slice(0, 12).toUpperCase();
-  return `BK-${compactId.slice(0, 4)}-${compactId.slice(4, 8)}-${compactId.slice(8)}`;
 }
 
 function BookingDetails({ booking }: { booking: Booking }) {
@@ -406,7 +402,7 @@ export function AdminDashboard({ initialAuthenticated }: { initialAuthenticated:
                       <td className="px-4 py-4 align-top">
                         <p className="font-semibold text-foreground">{booking.fullName}</p>
                         <p className="mt-1 text-xs text-muted-foreground">
-                          Ref: <code>{bookingReference(booking.id)}</code>
+                          Ref: <code>{formatBookingReference(booking.id)}</code>
                         </p>
                       </td>
                       <td className="px-4 py-4 align-top">{serviceLabel(booking.serviceType)}</td>

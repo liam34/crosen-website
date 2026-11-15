@@ -9,6 +9,7 @@ import {
   bookingTimeLabels,
   bookingTimeValues,
 } from "@/lib/booking-schema";
+import { formatBookingReference } from "@/lib/booking-reference";
 import { services } from "@/lib/content";
 
 const field =
@@ -99,7 +100,9 @@ export function BookingForm() {
       <div className="border-l-4 border-fresh bg-secondary p-6 md:p-8" role="status">
         <h3 className="text-2xl font-bold">Request received.</h3>
         <p className="mt-3 text-muted-foreground">{feedback}</p>
-        <p className="mt-2 text-sm text-muted-foreground">Reference: {bookingId}</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Reference: {formatBookingReference(bookingId)}
+        </p>
         <Button
           variant="outline"
           className="mt-6"
