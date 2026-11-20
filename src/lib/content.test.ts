@@ -19,4 +19,24 @@ describe("shared cleaning content", () => {
       ).toBe(true);
     }
   });
+
+  it("lists the requested commercial and industrial cleaning offerings", () => {
+    const offerings = services.flatMap((service) => service.details);
+
+    expect(offerings).toEqual(
+      expect.arrayContaining([
+        "Commercial and Office Cleaning",
+        "Industrial and Warehouse Cleaning",
+        "Floor scrubbing, Stripping and waxing",
+        "Post-Construction Cleaning",
+        "Restaurant and Kitchen Area Cleaning",
+        "Common Areas and Building Entrances",
+        "Parking Lot Litter Pick Up",
+        "Carpet and Upholstery Cleaning",
+        "Window and Glass Cleaning",
+        "Washroom Cleaning and Sanitation",
+        "Deep Cleaning",
+      ]),
+    );
+  });
 });
